@@ -1,13 +1,6 @@
-# service:
-#   port: ':8080'
-#   secretJWT: 'superSecretJwt'
-
-# database:
-#   dataSourceName: 'root:superSecretPassword@tcp(localhost:3306)/ifortepay_hometest?parseTime=true'
-
 service:
   port: ':8080'
   secretJWT: 'superSecretJwt'
 
 database:
-  dataSourceName: '${DB_USER}:${DB_PASSWORD}@tcp(${DB_HOST}:${DB_PORT})/${DB_NAME}?parseTime=true'
+  dataSourceName: 'root:superSecretPassword@tcp(db:3306)/ifortepay_hometest?parseTime=true'

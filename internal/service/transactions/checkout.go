@@ -111,7 +111,12 @@ func applyDiscounts(total float64, productsBought map[string]*productDetail) *ca
 	var discountExplanation []string
 
 	// Rule: user buy MacbookPro with Raspberry
-	if productsBought[SKUMacbookPro].Qty > 0 &&
+	macbookPro, macExists := productsBought[SKUMacbookPro]
+	raspberry, rasExists := productsBought[SKURaspberry]
+
+	if macExists && macbookPro != nil &&
+		rasExists && raspberry != nil &&
+		productsBought[SKUMacbookPro].Qty > 0 &&
 		productsBought[SKURaspberry].Qty > 0 &&
 		productsBought[SKUMacbookPro].Qty == productsBought[SKURaspberry].Qty {
 		discount := float64(productsBought[SKURaspberry].Qty) * productsBought[SKURaspberry].Price
@@ -122,7 +127,10 @@ func applyDiscounts(total float64, productsBought map[string]*productDetail) *ca
 	}
 
 	// Rule: buy 3 Google Home devices
-	if productsBought[SKUGoogleHome].Qty >= 3 {
+	googleHome, googleHomeExists := productsBought[SKUGoogleHome]
+
+	if googleHomeExists && googleHome != nil &&
+		productsBought[SKUGoogleHome].Qty >= 3 {
 		discount := productsBought[SKUGoogleHome].Price
 		discountExplanation = append(discountExplanation, "Buy 3 Google Homes for the price of 2")
 
@@ -131,7 +139,10 @@ func applyDiscounts(total float64, productsBought map[string]*productDetail) *ca
 	}
 
 	// Rule: buy 3 or more Alexa speakers
-	if productsBought[SKUAlexa].Qty >= 3 {
+	alexa, alexaExists := productsBought[SKUAlexa]
+
+	if alexaExists && alexa != nil &&
+		productsBought[SKUAlexa].Qty >= 3 {
 		discount := (productsBought[SKUAlexa].Price * 0.1) * float64(productsBought[SKUAlexa].Qty)
 		discountExplanation = append(discountExplanation, "Buying more than 3 Alexa Speakers will get a 10% discount on all Alexa speakers")
 
