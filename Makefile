@@ -1,4 +1,4 @@
-export MYSQL_URL='mysql://root:superSecretPassword@tcp(localhost:3306)/ifortepay_hometest'
+export MYSQL_URL='mysql://root:superSecretPassword@tcp(db:3306)/ifortepay_hometest'
 
 migrate-create:
 	@ migrate create -ext sql -dir scripts/migrations -seq $(name)

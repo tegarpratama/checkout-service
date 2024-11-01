@@ -16,7 +16,6 @@ import (
 	transactionSvc "github.com/tegarpratama/checkout-service/internal/service/transactions"
 
 	"github.com/tegarpratama/checkout-service/pkg/internalsql"
-	"github.com/tegarpratama/checkout-service/pkg/seeder"
 )
 
 func main() {
@@ -44,8 +43,6 @@ func main() {
 
 	log.Println("database connected")
 
-	seeder.SeedProducts(db)
-
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 
@@ -67,7 +64,5 @@ func main() {
 	transactionHandler := transactionHandler.NewHandler(api, transactionService)
 	transactionHandler.RegisterRoute()
 
-	// server := fmt.Sprintf("127.0.0.1%s", cfg.Service.Port)
-	// r.Run(server)
 	r.Run(cfg.Service.Port)
 }

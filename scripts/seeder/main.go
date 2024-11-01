@@ -1,13 +1,25 @@
-package seeder
+package main
 
 import (
 	"database/sql"
 	"log"
 
+		_ "github.com/go-sql-driver/mysql"
 	"github.com/tegarpratama/checkout-service/internal/model/products"
 )
 
-func SeedProducts(db *sql.DB) {
+func main() {
+	db, err := sql.Open("mysql", "root:superSecretPassword@tcp(db:3306)/ifortepay_hometest?parseTime=true")
+	if err != nil {
+		log.Fatalf("error connecting to database %+v\n", err)
+	}
+
+	defer db.Close()
+
+	seedProduct(db)
+}
+
+func seedProduct(db *sql.DB) {
 	productInserted := []products.ProductModel{
 		{
 			SKU:          "120P90",

@@ -2,24 +2,24 @@ version: '3'
 services:
   db:
     image: mysql:8.0
-    container_name: ifortune-checkout-service-db
+    container_name: ifortepay-checkout-service-db
     ports:
       - '3306:3306'
     environment:
       - MYSQL_ROOT_PASSWORD=superSecretPassword
       - MYSQL_DATABASE=ifortepay_hometest
     volumes:
-      # - /home/egardev/code/go/interview-test/ifortune_mysql/db:/var/lib/mysql
-      - ./db:/var/lib/mysql
+      - db-data:/var/lib/mysql
 
   app:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: ifortune-checkout-service-app
+    container_name: ifortepay-checkout-service-app
     depends_on:
       - db
     environment:
+      - DB_PORT=3306
       - DB_USER=root
       - DB_PASSWORD=superSecretPassword
       - DB_NAME=ifortepay_hometest
